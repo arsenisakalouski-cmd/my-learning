@@ -1,0 +1,320 @@
+import requests
+import json
+from datetime import datetime
+
+WEATHER_API_KEY = "abf50edc8408656d0c342adb43c7e925"
+
+# Файлы для сохранения
+WEATHER_FILE = "weather_history.json"
+QUOTES_FILE = "saved_quotes.json"
+
+def load_json(filename):
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return[]
+    except json.JSONDecodeError:
+        print(f" Файл {filename} повреждён, создаём новый")
+        return []
+    
+def save_json(data, filename):
+    try :
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f" Данные сохранены в {filename}")
+    except Exception as e:
+        print(f" Ошибка сохранения: {e}")
+
+def get_weather(city):
+    if WEATHER_API_KEY == "abf50edc8408656d0c342adb43c7e925" : 
+        print("Установите WEATHER_API_KEY для работы с погодой")
+        return None
+     
+    url = "http://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": city,
+        "appid": WEATHER_API_KEY,
+        "units": "metric",
+        "lang": "ru"
+    }
+     
+    try:
+        response = requests.get(url, params=params, timeout=5)
+        
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            print(f" Город '{city}' не найден")
+        elif response.status_code == 401:
+            print(" Неверный API ключ")
+        else:
+            print(f" Ошибка {response.status_code}")
+        
+        return None
+    
+    except requests.RequestException as e:
+        print(f" Ошибка запроса: {e}")
+        return None
+    
+
+def save_weather(city, weather_data):
+     # Формируем запись
+    record = {
+        "city": city,
+        "temperature": weather_data['main']['temp'],
+        "description": weather_data['weather'][0]['description'],
+        "humidity": weather_data['main']['humidity'],
+        "wind_speed": weather_data['wind']['speed'],
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    
+    history.append(record)
+    save_json(history, WEATHER_FILE)
+
+    
+def get_random_quote():
+    """Получить случайную цитату"""
+    url = "https://api.quotable.io/random"
+    
+    try:
+        response = requests.get(url, timeout=5)
+        if response.ok:
+            return response.json()
+        return None
+    except requests.RequestException as e:
+        print(f" Ошибка: {e}")
+        return None
+
+
+def save_quote(quote_data):
+    """Сохранить цитату в избранное"""
+    quotes = load_json(QUOTES_FILE)
+    
+    record = {
+        "content": quote_data['content'],
+        "author": quote_data['author'],
+        "saved_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    
+    quotes.append(record)
+    save_json(quotes, QUOTES_FILE)
+    print(" Цитата сохранена!")
+
+def show_saved_quotes():
+    """Показать сохранённые цитаты"""
+    quotes = load_json(QUOTES_FILE)
+    
+    if not quotes:
+        print("\n📋 Нет сохранённых цитат\n")
+        return
+    
+    print("\n" + "="*70)
+    print(" СОХРАНЁННЫЕ ЦИТАТЫ")
+    print("="*70)
+    
+    for i, quote in enumerate(quotes, 1):
+        print(f"\n{i}. \"{quote['content']}\"")
+        print(f"   — {quote['author']}")
+        print(f"    Сохранено: {quote['saved_at']}")
+    
+    print("\n" + "="*70 + "\n")
+
+
+
+
+def get_exchange_rate(from_curr, to_curr):
+    """Получить курс обмена"""
+    url = f"https://api.exchangerate-api.com/v4/latest/{from_curr}"
+    
+    try:
+        response = requests.get(url, timeout=5)
+        if response.ok:
+            data = response.json()
+            if to_curr in data['rates']:
+                return data['rates'][to_curr]
+        return None
+    except requests.RequestException as e:
+        print(f" Ошибка: {e}")
+        return None\
+        
+def currency_converter():
+    """Интерактивный конвертер валют"""
+    print("\n" + "💱"*35)
+    print("           КОНВЕРТЕР ВАЛЮТ")
+    print("💱"*35)
+    
+    try:
+        amount = float(input("\nСумма: "))
+        from_curr = input("Из валюты (USD, EUR, RUB...): ").strip().upper()
+        to_curr = input("В валюту (USD, EUR, RUB...): ").strip().upper()
+        
+        rate = get_exchange_rate(from_curr, to_curr)
+        
+        if rate:
+            result = amount * rate
+            print(f"\n {amount} {from_curr} = {result:.2f} {to_curr}")
+            print(f"   Курс: 1 {from_curr} = {rate:.4f} {to_curr}\n")
+        else:
+            print(" Не удалось получить курс\n")
+    
+    except ValueError:
+        print(" Введите корректное число\n")
+
+
+def generate_random_users(count=5):
+    """Сгенерировать случайных пользователей"""
+    url = f"https://randomuser.me/api/?results={count}"
+    
+    try:
+        response = requests.get(url, timeout=5)
+        if response.ok:
+            data = response.json()
+            return data['results']
+        return None
+    except requests.RequestException as e:
+        print(f" Ошибка: {e}")
+        return None
+    
+
+
+def show_random_users():
+    """Показать случайных пользователей"""
+    print("\n⏳ Генерирую пользователей...\n")
+    
+    users = generate_random_users(5)
+    
+    if not users:
+        print(" Не удалось получить пользователей\n")
+        return
+    
+    print("="*70)
+    print(" СЛУЧАЙНЫЕ ПОЛЬЗОВАТЕЛИ")
+    print("="*70)
+    
+    for i, user in enumerate(users, 1):
+        name = f"{user['name']['first']} {user['name']['last']}"
+        email = user['email']
+        country = user['location']['country']
+        age = user['dob']['age']
+        
+        print(f"\n{i}. {name}")
+        print(f"    {email}")
+        print(f"    {country}, {age} лет")
+    
+    print("\n" + "="*70 + "\n")
+
+
+
+def show_menu():
+    """Показать главное меню"""
+    print("\n" + "🌐"*35)
+    print("              DATA HUB - ЦЕНТР ДАННЫХ")
+    print("🌐"*35)
+    print("\n1. 🌤️  Погода")
+    print("2. 💬 Случайная цитата")
+    print("3. 💱 Конвертер валют")
+    print("4. 👥 Случайные пользователи")
+    print("5. 📊 История погоды")
+    print("6. 💾 Сохранённые цитаты")
+    print("7. 🚪 Выход")
+    print("\n" + "="*70)
+
+
+def weather_menu():
+    """Меню погоды"""
+    city = input("\n🌍 Введите город: ").strip()
+    
+    if not city:
+        print(" Введите название города!\n")
+        return
+    
+    print(f"\ Получаю погоду для {city}...\n")
+    
+    weather = get_weather(city)
+    
+    if weather:
+        print("="*50)
+        print(f"  Погода в городе: {weather['name']}")
+        print("="*50)
+        print(f"  Температура: {weather['main']['temp']}°C")
+        print(f" Ощущается: {weather['main']['feels_like']}°C")
+        print(f"  {weather['weather'][0]['description'].capitalize()}")
+        print(f" Влажность: {weather['main']['humidity']}%")
+        print(f" Ветер: {weather['wind']['speed']} м/с")
+        print("="*50 + "\n")
+        
+        # Сохраняем в историю
+        save_weather(city, weather)
+
+
+def quote_menu():
+    """Меню цитат"""
+    print("\n Получаю цитату...\n")
+    
+    quote = get_random_quote()
+    
+    if quote:
+        print("="*70)
+        print(" ЦИТАТА ДНЯ")
+        print("="*70)
+        print(f"\n\"{quote['content']}\"\n")
+        print(f"— {quote['author']}")
+        print("\n" + "="*70)
+        
+        save_choice = input("\n Сохранить цитату? (да/нет): ").strip().lower()
+        if save_choice == "да":
+            save_quote(quote)
+        print()
+
+
+def main():
+    """Главная функция приложения"""
+    print("\n" + ""*35)
+    print("         ДОБРО ПОЖАЛОВАТЬ В DATA HUB!")
+    print(""*35)
+    
+    while True:
+        show_menu()
+        
+        try:
+            choice = input("\nВыбор (1-7): ").strip()
+            
+            if choice == "1":
+                weather_menu()
+            
+            elif choice == "2":
+                quote_menu()
+            
+            elif choice == "3":
+                currency_converter()
+            
+            elif choice == "4":
+                show_random_users()
+            
+            elif choice == "5":
+                show_weather_history()
+            
+            elif choice == "6":
+                show_saved_quotes()
+            
+            elif choice == "7":
+                print("\n Спасибо за использование! До встречи!\n")
+                break
+            
+            else:
+                print("\n Выберите от 1 до 7\n")
+        
+        except KeyboardInterrupt:
+            print("\n\n Программа прервана")
+            print(" До встречи!\n")
+            break
+        
+        except Exception as e:
+            print(f"\n Неожиданная ошибка: {e}\n")
+
+
+
+if __name__ == "__main__":
+    main()
+
