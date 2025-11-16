@@ -1,0 +1,45 @@
+import re
+
+def extract_hashtags(text):
+    pattern = r'#\w+' 
+    hashtags = re.findall(pattern , text)
+    return hashtags
+
+text1 = "Изучаю #Python и #Regex. #Программирование это круто!"
+print("Хештеги:", extract_hashtags(text1))
+
+print("\n" + "="*60 + "\n")
+
+def parse_time(text):
+
+    pattern = r'\d{2}:\d{2}'
+    times = re.findall(pattern, text)
+    return times
+
+text2 = "Встреча в 10:30, обед в 13:00, уход в 18:30"
+print("Время:", parse_time(text2))
+
+print("\n" + "="*60 + "\n")
+
+def validate_ip(ip):
+
+    pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
+    
+    if not re.match(pattern, ip):
+        return False
+    
+    # Дополнительная проверка: каждое число от 0 до 255
+    parts = ip.split('.')
+    for part in parts:
+        if int(part) > 255:
+            return False
+    
+    return True
+
+ips = ["192.168.1.1", "256.1.1.1", "192.168.1", "192.168.1.1.1"]
+print("Проверка IP:\n")
+for ip in ips:
+    result = "OK" if validate_ip(ip) else "Плохой"
+    print(f"{ip:20} - {result}")
+
+print("\n" + "="*60 + "\n")
