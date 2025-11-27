@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1763830873247,
+    "amount": 1000,
+    "category": "Транспорт",
+    "description": "Проездной",
+    "transaction_type": "expense",
+    "date": "2025-11-22 18:01:13"
+  },
+  {
+    "id": 1763830873248,
+    "amount": 2000,
+    "category": "Развлечения",
+    "description": "Кино",
+    "transaction_type": "expense",
+    "date": "2025-11-22 18:01:13"
+  },
+  {
+    "id": 1763830905130,
+    "amount": 50000,
+    "category": "Зарплата",
+    "description": "Зарплата за ноябрь",
+    "transaction_type": "income",
+    "date": "2025-11-22 18:01:45"
+  },
+  {
+    "id": 1763830905131,
+    "amount": 500,
+    "category": "Еда",
+    "description": "Продукты",
+    "transaction_type": "expense",
+    "date": "2025-11-22 18:01:45"
+  },
+  {
+    "id": 1763830905132,
+    "amount": 1000,
+    "category": "Транспорт",
+    "description": "Проездной",
+    "transaction_type": "expense",
+    "date": "2025-11-22 18:01:45"
+  },
+  {
+    "id": 1763830905132,
+    "amount": 2000,
+    "category": "Развлечения",
+    "description": "Кино",
+    "transaction_type": "expense",
+    "date": "2025-11-22 18:01:45"
+  }
+]
