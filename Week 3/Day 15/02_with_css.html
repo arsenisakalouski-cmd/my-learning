@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница со стилями</title>
+    
+    <!-- 
+        СПОСОБЫ ПОДКЛЮЧЕНИЯ CSS:
+        1. Внутренний стиль (в теге <style>)
+        2. Внешний файл (отдельный .css файл)
+        3. Inline стили (прямо в теге)
+    -->
+    
+    <style>
+        /* 
+            CSS пишется внутри <style> в <head>
+            
+            СИНТАКСИС:
+            селектор {
+                свойство: значение;
+                свойство: значение;
+            }
+        */
+        
+        /* ================================
+           СЕЛЕКТОР ПО ТЕГУ
+           ================================ */
+        
+        body {
+            /* 
+                Стили для всей страницы
+                body - селектор (выбирает все <body>)
+            */
+            font-family: Arial, sans-serif;
+            /* Шрифт для всего текста */
+            
+            margin: 20px;
+            /* Отступ от края страницы */
+            
+            background-color: #f5f5f5;
+            /* Цвет фона (серый) */
+            /* # - hex код цвета */
+        }
+        
+        h1 {
+            /* Стили для всех <h1> */
+            color: #2c3e50;
+            /* Цвет текста (тёмно-синий) */
+            
+            text-align: center;
+            /* Выравнивание по центру */
+            
+            font-size: 36px;
+            /* Размер шрифта */
+        }
+        
+        h2 {
+            color: #3498db;
+            /* Синий цвет */
+            
+            border-bottom: 2px solid #3498db;
+            /* Линия снизу: 2px толщина, сплошная, синяя */
+            
+            padding-bottom: 10px;
+            /* Отступ внутри снизу */
+        }
+        
+        p {
+            line-height: 1.6;
+            /* Межстрочный интервал (1.6 = 160%) */
+            
+            color: #333;
+            /* Тёмно-серый текст */
+        }
+        
+        /* ================================
+           СЕЛЕКТОР ПО КЛАССУ
+           ================================ */
+        
+        .highlight {
+            /* 
+                . (точка) = класс
+                Применится ко всем элементам с class="highlight"
+            */
+            background-color: yellow;
+            padding: 5px;
+            border-radius: 3px;
+            /* Скруглённые углы */
+        }
+        
+        .box {
+            /* Стиль для контейнера */
+            background-color: white;
+            padding: 20px;
+            /* Отступ ВНУТРИ (padding) */
+            
+            margin: 20px 0;
+            /* Отступ СНАРУЖИ (margin) */
+            /* 20px сверху/снизу, 0 слева/справа */
+            
+            border-radius: 10px;
+            /* Скруглённые углы 10px */
+            
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            /* Тень: 0 по X, 2px по Y, 5px размытие, цвет */
+        }
+        
+        .blue-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            /* Синяя линия слева */
+        }
+        
+        /* ================================
+           СЕЛЕКТОР ПО ID
+           ================================ */
+        
+        #header {
+            /* 
+                # (решётка) = ID
+                Применится к элементу с id="header"
+                ID должен быть уникальным на странице
+            */
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+            /* Отрицательные чтобы убрать margin body */
+        }
+        
+        /* ================================
+           СЕЛЕКТОР ДЛЯ ССЫЛОК
+           ================================ */
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+            /* Убрать подчёркивание */
+        }
+        
+        a:hover {
+            /* 
+                :hover - псевдокласс
+                Применяется когда наводим мышь
+            */
+            text-decoration: underline;
+            color: #2980b9;
+            /* Темнее при наведении */
+        }
+        
+        /* ================================
+           СТИЛИ ДЛЯ ТАБЛИЦЫ
+           ================================ */
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* Убрать двойные рамки */
+            
+            background-color: white;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            /* Подсветка строки при наведении */
+            background-color: #f5f5f5;
+        }
+        
+        /* ================================
+           СТИЛИ ДЛЯ КНОПКИ
+           ================================ */
+        
+        .button {
+            display: inline-block;
+            /* Чтобы могли задавать padding */
+            
+            padding: 12px 24px;
+            /* 12px сверху/снизу, 24px слева/справа */
+            
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            /* Курсор-рука при наведении */
+            
+            font-size: 16px;
+            transition: background-color 0.3s;
+            /* Плавный переход цвета за 0.3 секунды */
+        }
+        
+        .button:hover {
+            background-color: #2980b9;
+            /* Темнее при наведении */
+        }
+        
+        /* ================================
+           СТИЛИ ДЛЯ СПИСКА
+           ================================ */
+        
+        .custom-list {
+            list-style: none;
+            /* Убрать маркеры */
+            padding: 0;
+        }
+        
+        .custom-list li {
+            /* Выбираем <li> внутри .custom-list */
+            padding: 10px;
+            margin: 5px 0;
+            background-color: white;
+            border-left: 3px solid #3498db;
+        }
+        
+        .custom-list li:hover {
+            background-color: #e3f2fd;
+        } 
+    </style>
+</head>
+
+<body>
+    <!-- ID используем для уникальных элементов -->
+    <div id="header">
+        <h1>Страница со стилями CSS</h1>
+        <p>Изучаем основы стилизации</p>
+    </div>
+    
+    <!-- КЛАССЫ -->
+    <div class="box">
+        <!-- class="box" применяет стиль .box -->
+        <h2>Что такое CSS?</h2>
+        <p>
+            CSS позволяет управлять внешним видом HTML элементов.
+            Можно изменять <span class="highlight">цвета</span>, 
+            <span class="highlight">размеры</span>, 
+            <span class="highlight">отступы</span> и многое другое.
+        </p>
+    </div>
+    
+    <div class="box blue-box">
+        <!-- Можно применить несколько классов через пробел -->
+        <h2>Основные свойства</h2>
+        <ul class="custom-list">
+            <li>color - цвет текста</li>
+            <li>background-color - цвет фона</li>
+            <li>padding - внутренний отступ</li>
+            <li>margin - внешний отступ</li>
+            <li>border - рамка</li>
+        </ul>
+    </div>
+    
+    <div class="box">
+        <h2>Таблица с данными</h2>
+        <table>
+            <tr>
+                <th>Свойство</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <td>font-size</td>
+                <td>Размер шрифта</td>
+            </tr>
+            <tr>
+                <td>text-align</td>
+                <td>Выравнивание текста</td>
+            </tr>
+            <tr>
+                <td>border-radius</td>
+                <td>Скругление углов</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="box">
+        <h2>Ссылки и кнопки</h2>
+        <p>
+            <a href="https://developer.mozilla.org/ru/docs/Web/CSS">
+                Документация CSS на MDN
+            </a>
+        </p>
+        
+        <!-- Кнопка - это обычная ссылка со стилем .button -->
+        <a href="#" class="button">Кнопка-ссылка</a>
+    </div>
+    
+    <!-- INLINE СТИЛИ (не рекомендуется) -->
+    <div style="background-color: lightyellow; padding: 15px; margin-top: 20px;">
+        <p style="color: red; font-weight: bold;">
+            Это inline стиль (прямо в теге).
+            Использовать только для быстрых тестов!
+        </p>
+    </div>
+    
+</body>
+</html>

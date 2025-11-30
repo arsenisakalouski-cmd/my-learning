@@ -1,0 +1,151 @@
+/* styles.css - внешний файл стилей */
+
+/* ================================
+   ОБЩИЕ СТИЛИ
+   ================================ */
+
+* {
+    /* 
+        * - универсальный селектор (все элементы)
+        Сброс отступов для всех элементов
+    */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 
+        box-sizing: border-box делает так что
+        width включает padding и border
+        Упрощает вёрстку
+    */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ================================
+   HEADER (ШАПКА)
+   ================================ */
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Градиент от фиолетового к синему под углом 135° */
+    
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.header nav {
+    margin-top: 1rem;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.header nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ================================
+   КОНТЕЙНЕР
+   ================================ */
+
+.container {
+    max-width: 1200px;
+    /* Максимальная ширина */
+    
+    margin: 2rem auto;
+    /* auto - центрирование по горизонтали */
+    
+    padding: 0 20px;
+}
+
+/* ================================
+   КАРТОЧКИ
+   ================================ */
+
+.card {
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* Плавная анимация трансформации и тени */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    /* Поднять на 5px вверх */
+    
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    /* Усилить тень */
+}
+
+.card h2 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.highlight-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.highlight-card h2 {
+    color: white;
+}
+
+/* ================================
+   FOOTER (ПОДВАЛ)
+   ================================ */
+
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+/* ================================
+   АДАПТИВНОСТЬ (для мобильных)
+   ================================ */
+
+@media (max-width: 768px) {
+    /* 
+        @media - медиа-запрос
+        Применяется только если ширина экрана <= 768px
+        (мобильные устройства)
+    */
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header nav a {
+        display: block;
+        /* Ссылки в столбик */
+        margin: 5px 0;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+}

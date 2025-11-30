@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внешний CSS</title>
+    
+    <!-- Подключение внешнего CSS файла -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- 
+        <link> - подключение файла
+        rel="stylesheet" - тип связи (таблица стилей)
+        href="styles.css" - путь к файлу
+    -->
+</head>
+
+<body>
+    <header class="header">
+        <h1>Сайт с внешним CSS</h1>
+        <nav>
+            <a href="#home">Главная</a>
+            <a href="#about">О нас</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="card">
+            <h2>Раздел 1</h2>
+            <p>Это пример карточки контента.</p>
+        </section>
+        
+        <section class="card">
+            <h2>Раздел 2</h2>
+            <p>Ещё одна карточка с информацией.</p>
+        </section>
+        
+        <section class="card highlight-card">
+            <h2>Важная информация</h2>
+            <p>Эта карточка выделена другим цветом.</p>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Мой сайт. Все права защищены.</p>
+    </footer>
+</body>
+</html>

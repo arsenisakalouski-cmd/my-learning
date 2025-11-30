@@ -1,0 +1,532 @@
+/* portfolio.css - Стили для портфолио */
+
+/* ================================
+   СБРОС И ОБЩИЕ СТИЛИ
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 
+    Плавная прокрутка при клике на якорные ссылки
+*/
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #2c3e50;
+    position: relative;
+}
+
+/* 
+    Подчёркивание под заголовком
+    :: - псевдоэлемент (виртуальный элемент)
+*/
+.section-title::after {
+    content: "";
+    /* content обязателен для ::after */
+    
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* ================================
+   НАВИГАЦИЯ
+   ================================ */
+
+.navbar {
+    background-color: #2c3e50;
+    /* 
+        position: sticky - прилипает при прокрутке
+        top: 0 - прилипает к верху
+    */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* z-index - слой (больше = выше) */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 20px;
+    
+    /* 
+        Flexbox - гибкая раскладка
+        Располагаем элементы в строку
+    */
+    display: flex;
+    justify-content: space-between;
+    /* Распределить с краёв */
+    align-items: center;
+    /* Выровнять по центру вертикали */
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    /* gap - расстояние между элементами flex */
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 500;
+}
+
+.nav-menu a:hover {
+    color: #667eea;
+}
+
+/* ================================
+   ГЕРОИЧЕСКАЯ СЕКЦИЯ
+   ================================ */
+
+.hero {
+    /* 
+        Градиентный фон
+        linear-gradient(угол, цвет1, цвет2)
+    */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    min-height: 100vh;
+    /* 100vh = 100% высоты окна браузера */
+    
+    /* Flexbox для центрирования */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    
+    /* 
+        Анимация появления
+        @keyframes определён ниже
+    */
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+    /* 0.3s - задержка перед началом */
+    /* backwards - применить начальные стили до анимации */
+}
+
+/* ================================
+   КНОПКИ
+   ================================ */
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: white;
+    color: #667eea;
+}
+
+.btn-primary:hover {
+    /* 
+        При наведении меняем на прозрачный фон
+        с белой рамкой
+    */
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    transform: translateY(-3px);
+    /* Поднять на 3px */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ================================
+   ОБО МНЕ
+   ================================ */
+
+.about {
+    padding: 5rem 0;
+    background-color: #f8f9fa;
+}
+
+.about-content {
+    /* 
+        Grid - сетка
+        Делим на 2 колонки: 60% и 40%
+    */
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* repeat(3, 1fr) = три равные колонки */
+    gap: 1rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ================================
+   НАВЫКИ
+   ================================ */
+
+.skills {
+    padding: 5rem 0;
+}
+
+.skills-grid {
+    /* 
+        auto-fit - автоматически подгонять количество колонок
+        minmax(250px, 1fr) - минимум 250px, максимум равные доли
+    */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.skill-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.skill-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.skill-card h3 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.skill-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* 
+    Прогресс-бар
+    Внешний div - фон
+    Внутренний div - заполнение
+*/
+.progress-bar {
+    background-color: #e9ecef;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Скрыть всё что вылезает за границы */
+}
+
+.progress {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease-out;
+    /* width задаётся inline в HTML */
+}
+
+/* ================================
+   ПРОЕКТЫ
+   ================================ */
+
+.projects {
+    padding: 5rem 0;
+    background-color: #f8f9fa;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    
+    /* 
+        Flexbox для расположения контента
+        Заголовок вверху, описание по центру, теги внизу
+    */
+    display: flex;
+    flex-direction: column;
+    /* Вертикальное направление */
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.project-tag {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.project-description {
+    color: #666;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    /* Занять всё доступное пространство */
+}
+
+.project-tech {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    /* Перенос на новую строку если не влезает */
+}
+
+.tech-badge {
+    background-color: #e9ecef;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+/* ================================
+   КОНТАКТЫ
+   ================================ */
+
+.contact {
+    padding: 5rem 0;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.contact-info h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.contact-methods {
+    margin-top: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.contact-icon {
+    font-size: 2rem;
+}
+
+/* ================================
+   ФОРМА
+   ================================ */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+/* 
+    :focus - псевдокласс
+    Применяется когда элемент в фокусе (выбран)
+*/
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    /* Убрать стандартную обводку */
+    border-color: #667eea;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
+
+/* ================================
+   АНИМАЦИИ
+   ================================ */
+
+@keyframes fadeInUp {
+    /* 
+        Определение анимации
+        from - начальное состояние
+        to - конечное состояние
+    */
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   АДАПТИВНОСТЬ
+   ================================ */
+
+@media (max-width: 768px) {
+    /* Стили для экранов <= 768px (планшеты, телефоны) */
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .about-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+        /* Одна колонка вместо двух */
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
