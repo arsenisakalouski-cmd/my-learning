@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск - Мой сайт{% endblock %}
+
+{% block content %}
+    <div class="search-container">
+        <h1>Поиск</h1>
+        
+        <!-- Форма поиска с GET методом -->
+        <form method="GET" action="{{ url_for('search') }}">
+            <div class="search-box">
+                <input type="text" name="q" value="{{ query }}" 
+                       placeholder="Что ищем?" required>
+                
+                <select name="category">
+                    <option value="all" {% if category == 'all' %}selected{% endif %}>
+                        Все категории
+                    </option>
+                    <option value="tutorials" {% if category == 'tutorials' %}selected{% endif %}>
+                        Уроки
+                    </option>
+                    <option value="articles" {% if category == 'articles' %}selected{% endif %}>
+                        Статьи
+                    </option>
+                </select>
+                
+                <button type="submit" class="btn btn-primary">Искать</button>
+            </div>
+        </form>
+        
+        {% if query %}
+            <div class="results">
+                <h2>Результаты для "{{ query }}"</h2>
+                <p>Категория: {{ category }} | Страница: {{ page }}</p>
+                
+                {% if results %}
+                    <ul>
+                        {% for result in results %}
+                            <li>{{ result }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Ничего не найдено</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

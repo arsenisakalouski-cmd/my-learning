@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }} - Профиль{% endblock %}
+
+{% block content %}
+    <div class="profile">
+        <h1>Профиль: {{ user.username }}</h1>
+        
+        <p><strong>Возраст:</strong> {{ user.age }}</p>
+        <p><strong>Город:</strong> {{ user.city }}</p>
+        
+        <h2>Хобби</h2>
+        <ul>
+            {% for hobby in user.hobbies %}
+                <li>{{ hobby }}</li>
+            {% endfor %}
+        </ul>
+        
+        {% if user.hobbies %}
+            <p>Всего хобби: {{ user.hobbies | length }}</p>
+        {% else %}
+            <p>Хобби не указаны</p>
+        {% endif %}
+    </div>
+{% endblock %}

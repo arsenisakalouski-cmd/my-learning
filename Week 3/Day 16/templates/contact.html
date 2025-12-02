@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты - Мой сайт{% endblock %}
+
+{% block content %}
+    <h1>Контакты</h1>
+    
+    <div class="contact-grid">
+        {% for contact in contacts %}
+            <div class="contact-card">
+                <h3>{{ contact['type'] }}</h3>
+                <p>{{ contact['value'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <p>Email: {{ email | upper }}</p>
+    <p>Контактов: {{ contacts | length }}</p>
+{% endblock %}

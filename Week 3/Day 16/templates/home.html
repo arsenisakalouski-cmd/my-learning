@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Мой сайт{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>Добро пожаловать на мой сайт!</h1>
+        <p>Это Flask приложение с шаблонами Jinja2</p>
+        <p>Привет, {{ name }}!</p>
+    </section>
+    
+    <section class="features">
+        <h2>Возможности Flask</h2>
+        
+        <ul>
+            {% for feature in features %}
+                <li>{{ feature }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}О нас - Мой сайт{% endblock %}
+
+{% block content %}
+    <h1>О нас</h1>
+    
+    <p>Мы изучаем Flask - веб-фреймворк на Python.</p>
+    
+    {% if show_stats %}
+        <div class="stats">
+            <h2>Статистика обучения</h2>
+            <p>Дней: {{ days }}</p>
+            <p>Проектов: {{ projects }}</p>
+        </div>
+    {% else %}
+        <p>Статистика скрыта</p>
+    {% endif %}
+    
+    {% if user_type == 'admin' %}
+        <p>Вы администратор</p>
+    {% elif user_type == 'moderator' %}
+        <p>Вы модератор</p>
+    {% else %}
+        <p>Вы обычный пользователь</p>
+    {% endif %}
+{% endblock %}
