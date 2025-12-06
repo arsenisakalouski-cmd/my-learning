@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск: {{ query }} - Блог{% endblock %}
+
+{% block content %}
+    <h1>Результаты поиска: "{{ query }}"</h1>
+    
+    {% if posts %}
+        <p class="search-info">Найдено постов: {{ posts | length }}</p>
+        
+        <div class="posts-grid">
+            {% for post in posts %}
+                <article class="post-card">
+                    <h2>
+                        <a href="{{ url_for('view_post', post_id=post.id) }}">
+                            {{ post.title }}
+                        </a>
+                    </h2>
+                    
+                    <div class="post-meta">
+                        <span>✍️ {{ post.author }}</span>
+                        <span>👁️ {{ post.views }}</span>
+                        <span>💬 {{ post.comment_count }}</span>
+                        <span>🕐 {{ post.created_at | timeago }}</span>
+                    </div>
+                    
+                    <p class="post-excerpt">
+                        {{ post.content[:150] }}...
+                    </p>
+                    
+                    <a href="{{ url_for('view_post', post_id=post.id) }}" class="btn-read">
+                        Читать далее →
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>Ничего не найдено</h2>
+            <p>Попробуйте изменить запрос</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                ← На главную
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

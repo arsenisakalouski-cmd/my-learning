@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Статистика - Блог{% endblock %}
+
+{% block content %}
+    <h1>Статистика блога</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-value">{{ stats.total_posts }}</div>
+            <div class="stat-label">Постов</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-value">{{ stats.total_comments }}</div>
+            <div class="stat-label">Комментариев</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-value">{{ stats.total_views }}</div>
+            <div class="stat-label">Просмотров</div>
+        </div>
+        
+        {% if stats.popular_post %}
+        <div class="stat-card popular">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-label">Самый популярный пост</div>
+            <div class="stat-title">{{ stats.popular_post }}</div>
+            <div class="stat-info">{{ stats.popular_views }} просмотров</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="stats-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            ← На главную
+        </a>
+    </div>
+{% endblock %}
