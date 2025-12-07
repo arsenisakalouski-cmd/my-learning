@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация - Блог{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <h1>Регистрация</h1>
+        <p class="form-description">Создайте аккаунт чтобы публиковать посты</p>
+        
+        <form action="{{ url_for('register') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       value="{{ username if username else '' }}"
+                       placeholder="ivan123" 
+                       required 
+                       autofocus>
+                <small>Минимум 3 символа, только латиница и цифры</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       value="{{ email if email else '' }}"
+                       placeholder="ivan@example.com" 
+                       required>
+                <small>Используется для восстановления пароля</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       placeholder="••••••••" 
+                       required>
+                <small>Минимум 6 символов</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password_confirm">Подтвердите пароль</label>
+                <input type="password" 
+                       id="password_confirm" 
+                       name="password_confirm" 
+                       placeholder="••••••••" 
+                       required>
+                <small>Введите пароль ещё раз</small>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    ✅ Зарегистрироваться
+                </button>
+            </div>
+            
+            <div class="form-footer">
+                <p>Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}

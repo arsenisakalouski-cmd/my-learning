@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль - {{ user.username }}{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                {{ user.username[0].upper() }}
+            </div>
+            <div class="profile-info">
+                <h1>{{ user.username }}</h1>
+                <p class="profile-email">📧 {{ user.email }}</p>
+                <p class="profile-date">📅 На сайте с {{ user.created_at | timeago }}</p>
+            </div>
+        </div>
+        
+        <div class="profile-stats">
+            <div class="stat-item">
+                <div class="stat-value">{{ posts | length }}</div>
+                <div class="stat-label">Постов</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">
+                    {% set total_views = namespace(count=0) %}
+                    {% for post in posts %}
+                        {% set total_views.count = total_views.count + post.views %}
+                    {% endfor %}
+                    {{ total_views.count }}
+                </div>
+                <div class="stat-label">Просмотров</div>
+            </div>
+        </div>
+        
+        <div class="profile-posts">
+            <h2>Мои посты</h2>
+            
+            {% if posts %}
+                <div class="posts-list">
+                    {% for post in posts %}
+                        <div class="post-item">
+                            <div class="post-item-header">
+                                <h3>
+                                    <a href="{{ url_for('view_post', post_id=post.id) }}">
+                                        {{ post.title }}
+                                    </a>
+                                </h3>
+                                <div class="post-item-meta">
+                                    <span>👁️ {{ post.views }}</span>
+                                    <span>🕐 {{ post.created_at | timeago }}</span>
+                                </div>
+                            </div>
+                            <p class="post-item-excerpt">
+                                {{ post.content[:100] }}...
+                            </p>
+                            <div class="post-item-actions">
+                                <a href="{{ url_for('view_post', post_id=post.id) }}" class="btn-small">
+                                    Читать
+                                </a>
+                                <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn-small btn-edit">
+                                    ✏️ Редактировать
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>У вас пока нет постов</p>
+                    <a href="{{ url_for('new_post') }}" class="btn btn-primary">
+                        Создать первый пост
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
